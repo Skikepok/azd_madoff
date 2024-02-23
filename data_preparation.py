@@ -66,3 +66,17 @@ def extract_edge_data(df_fraud_data: pd.DataFrame, df_nodes: pd.DataFrame) -> pd
     df_edges['link_type_int'] = df_edges["link_type"].map(link_type_mapping)
 
     return df_edges
+
+def keep_only_customers_with_multi_edge_links(df_fraud_data: pd.DataFrame, relevant_link_types: list[str]) -> pd.DataFrame:
+    # Keep only customers with multiple links
+    customers_to_keep= []
+    # Loop over the relevant link types
+    for link_type in relevant_link_types:
+        df_link_type = df_fraud_data[df_fraud_data["link_type"] == link_type]
+        multiple_links = df_link_type.groupby('link_value')['custom_person_hash'].transform('nunique') > 1
+        customers_to_keep += list(df_link_type[multiple_links]['custom_person_hash'].unique())
+
+    # Make unique list of customers to keep
+    customers_to_keep = list(set(customers_to_keep))
+
+    return df_fraud_data[df_fraud_data["custom_person_hash"].isin(customers_to_keep)]
