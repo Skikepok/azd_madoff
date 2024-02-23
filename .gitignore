@@ -1,3 +1,6 @@
+# Don't include the data that we will manually add to the repo
+data/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
