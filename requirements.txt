@@ -2,3 +2,5 @@ pandas
 pyarrow
 ipykernel
 pygod
+torch
+torch_geometric
