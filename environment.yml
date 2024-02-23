@@ -1,0 +1,7 @@
+# To create this environment, run:
+# - conda env create -f environment.yml -n azd_madoff && conda activate azd_madoff && pip install -r requirements.txt
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
